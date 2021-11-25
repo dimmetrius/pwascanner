@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/pwascanner/static/css/main.34b88030.chunk.css",
+    "main.js": "/pwascanner/static/js/main.4d6cca7a.chunk.js",
+    "main.js.map": "/pwascanner/static/js/main.4d6cca7a.chunk.js.map",
+    "runtime-main.js": "/pwascanner/static/js/runtime-main.fb5ca6c6.js",
+    "runtime-main.js.map": "/pwascanner/static/js/runtime-main.fb5ca6c6.js.map",
+    "static/js/2.788eaba1.chunk.js": "/pwascanner/static/js/2.788eaba1.chunk.js",
+    "static/js/2.788eaba1.chunk.js.map": "/pwascanner/static/js/2.788eaba1.chunk.js.map",
+    "static/js/3.ee61217a.chunk.js": "/pwascanner/static/js/3.ee61217a.chunk.js",
+    "static/js/3.ee61217a.chunk.js.map": "/pwascanner/static/js/3.ee61217a.chunk.js.map",
+    "index.html": "/pwascanner/index.html",
+    "service-worker.js": "/pwascanner/service-worker.js",
+    "service-worker.js.map": "/pwascanner/service-worker.js.map",
+    "static/css/main.34b88030.chunk.css.map": "/pwascanner/static/css/main.34b88030.chunk.css.map",
+    "static/js/2.788eaba1.chunk.js.LICENSE.txt": "/pwascanner/static/js/2.788eaba1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fb5ca6c6.js",
+    "static/js/2.788eaba1.chunk.js",
+    "static/css/main.34b88030.chunk.css",
+    "static/js/main.4d6cca7a.chunk.js"
+  ]
+}
