@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState, useMemo} from 'react';
-import {BrowserMultiFormatReader} from '@zxing/library';
+import {BrowserQRCodeReader, IScannerControls} from '@zxing/browser';
 
 export default function Scanner() {
     const video = useRef<HTMLVideoElement>(null);
@@ -8,34 +8,42 @@ export default function Scanner() {
     const [text, setText] = useState<string>('')
     const [error, setError] = useState<string>('')
     const codeReader = useMemo(()=>{
-        return new BrowserMultiFormatReader()
+        return new BrowserQRCodeReader()
     }, []);
 
     useEffect(() => {
-            codeReader.listVideoInputDevices().then((videoInputDevices) => {
+        BrowserQRCodeReader.listVideoInputDevices().then((videoInputDevices) => {
                 if(videoInputDevices && videoInputDevices.length){
                     setInputDevices(videoInputDevices)
-                    setSelectedDevice(videoInputDevices[0])
+                    //setSelectedDevice(videoInputDevices[0])
                 }
             }).catch(e => {
                 setError(e.toString())
             })
-            return function cleanup() {
-                codeReader.stopContinuousDecode()
-                codeReader.stopAsyncDecode()
-            };
     }, [codeReader]);
 
     useEffect(() => {
-        if(selectedDevice){
+        if(selectedDevice && video.current != null){
+            let controls: IScannerControls;
+
             codeReader
             .decodeFromVideoDevice(selectedDevice.deviceId, video.current, function (result, error) {
                 if (result) {
                     setText(result.getText())
                 }
+            }).then(cls => {
+                controls = cls;
             })
+
+            return () => {
+                if (controls){
+                    //controls.stop()
+                }
+            }
         }
     }, [codeReader, selectedDevice])
+
+    console.log(video.current)
 
     if (error) {
         return <div> {error}</div>
