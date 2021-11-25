@@ -15,15 +15,15 @@ export default function Scanner() {
         BrowserQRCodeReader.listVideoInputDevices().then((videoInputDevices) => {
                 if(videoInputDevices && videoInputDevices.length){
                     setInputDevices(videoInputDevices)
-                    //setSelectedDevice(videoInputDevices[0])
+                    setSelectedDevice(videoInputDevices[0])
                 }
             }).catch(e => {
                 setError(e.toString())
             })
-    }, [codeReader]);
+    }, []);
 
     useEffect(() => {
-        if(selectedDevice && video.current != null){
+        if(codeReader && selectedDevice && video.current != null){
             let controls: IScannerControls;
 
             codeReader
@@ -37,7 +37,7 @@ export default function Scanner() {
 
             return () => {
                 if (controls){
-                    //controls.stop()
+                    controls.stop()
                 }
             }
         }
