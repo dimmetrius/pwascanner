@@ -71,7 +71,7 @@ const Scanner = () => {
                 })}
             </div>
             <video
-                style={{width: '50vw', height: '50vh', borderStyle: 'dashed', borderWidth: 1, borderColor: 'red'}}
+                style={{width: 'min(50vw, 50vh)', height: 'min(50vw, 50vh)', borderStyle: 'dashed', borderWidth: 1, borderColor: 'red', objectFit: 'cover'}}
                 ref={video}
             ></video>
             <div>{text}</div>
