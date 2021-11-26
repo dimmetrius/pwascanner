@@ -1,7 +1,22 @@
 import React, {useRef, useEffect, useState, useMemo} from 'react';
 import {BrowserQRCodeReader, IScannerControls} from '@zxing/browser';
 
-export default function Scanner() {
+const VisSwitcher: React.FC = ({children}) => {
+    const [visible, setVisible] = useState<boolean>(true)
+    useEffect(()=>{
+        const onVisChange = () => {
+            setVisible(document.visibilityState === 'visible')
+          }
+        document.addEventListener('visibilitychange', onVisChange);
+        return () => {
+            document.removeEventListener('visibilitychange', onVisChange)
+        }
+    })
+
+    return visible ? <> {children} </>: null
+}
+
+const Scanner = () => {
     const video = useRef<HTMLVideoElement>(null);
     const [inputDevices, setInputDevices] = useState<MediaDeviceInfo[]>([])
     const [selectedDevice, setSelectedDevice] = useState<MediaDeviceInfo>()
@@ -28,7 +43,9 @@ export default function Scanner() {
 
             codeReader
             .decodeFromVideoDevice(selectedDevice.deviceId, video.current, function (result, error) {
-                if (result) {
+                if(error){
+                    setError(error.message)
+                }else if (result) {
                     setText(result.getText())
                 }
             }).then(cls => {
@@ -43,13 +60,9 @@ export default function Scanner() {
         }
     }, [codeReader, selectedDevice])
 
-    console.log(video.current)
-
-    if (error) {
-        return <div> {error}</div>
-    }
     return (
         <>
+            {error && <div style={{color: 'red'}}> {error} </div>}
             <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: '20px'}}>
                 {inputDevices.map(d => {
                     return <button onClick={()=>{
@@ -65,3 +78,7 @@ export default function Scanner() {
         </>
     );
 }
+
+const WrappedScanner = () => <VisSwitcher><Scanner/></VisSwitcher>
+
+export default WrappedScanner
